@@ -39,7 +39,7 @@ function convertNumber() {
 </script>
 
 <template>
-  <h1>Roman Numeral Converter (0 & 100 only)</h1>
+  <h1>Roman Numeral Converter via SSE (0 & 100 only) </h1>
   <form @submit.prevent="convertNumber">
     <label for="number">Number (0–100):</label>
     <input type="number" id="number" v-model.number="number" min="0" max="100" required />
