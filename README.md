@@ -1,4 +1,4 @@
-# Jolimoi_test Step 1 - Conversion with Roman numerals
+# Jolimoi_test Step 2 - Conversion with Roman numerals using SSE
 
 ## Launch the project 
 
