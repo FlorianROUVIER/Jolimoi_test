@@ -1,24 +1,40 @@
 <script setup>
 import { ref } from 'vue';
-import api from '@/services/api';
 
 const number = ref(0);
 const result = ref('');
 const error = ref('');
 
-async function convertNumber() {
+let eventSource = null;
+
+function convertNumber() {
   error.value = '';
   result.value = '';
 
-  try {
-    const response = await api.getRomanNumber({ number: number.value });
-    // console.log(response.data);
-    result.value = response.data.romanResult;
-    // console.log('Conversion done:', result.value);
-  } catch (err) {
-    // console.error('API Error:', err);
-    error.value = err.response?.data?.error || 'Error during the conversion...';
+  // Close the stream if there's an existing connection
+  if (eventSource) {
+    eventSource.close();
+    eventSource = null;
   }
+
+  // JS method for using SSE back-end
+  // Declare eventSource here because var number can be changed anytime if we click on submit 
+  eventSource = new EventSource(`http://localhost:3000/convert-sse?number=${number.value}`);
+
+  eventSource.addEventListener('result', (event) => {
+    result.value = event.data;
+    // console.log('Conversion result:', result.value);
+    eventSource.close();
+    eventSource = null;
+  });
+
+  eventSource.addEventListener('error', (event) => {
+    error.value = 'Erreur lors de la conversion ou connexion SSE fermée.';
+    if (eventSource) {
+      eventSource.close();
+      eventSource = null;
+    }
+  });
 }
 </script>
 
@@ -26,7 +42,6 @@ async function convertNumber() {
   <h1>Roman Numeral Converter (0 & 100 only)</h1>
   <form @submit.prevent="convertNumber">
     <label for="number">Number (0–100):</label>
-    <!-- Limit between 0 & 100  -->
     <input type="number" id="number" v-model.number="number" min="0" max="100" required />
     <button type="submit">Convert</button>
   </form>
@@ -35,8 +50,3 @@ async function convertNumber() {
 </template>
 
 <style scoped></style>
-
-
-
-
-
