@@ -1,11 +1,19 @@
-# Jolimoi_test
+# Jolimoi_test Step 1 - Conversion with Roman numerals
 
-This is a technical test for Jolimoi
+## Launch the project 
 
-Please check the branches of the GitHub repository to find the specific exercises.
+### Backend with Node.js
 
+```bash
+  cd backend
+  npm install 
+  nodemeon server.js
+```
 
-## Branches 
+### Frontend with VueJS 3
 
-- [Step 1 : Back-end Conversion ](https://github.com/FlorianROUVIER/Jolimoi_test/tree/roman-conversion)
-- [Step 2 : Server Side Event ]()
+```bash
+  cd frontend
+  npm install 
+  npm run dev
+```
