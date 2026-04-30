@@ -6,8 +6,8 @@
 
 ```bash
   cd backend
-  npm install 
-  nodemeon server.js
+  npm install
+
 ```
 
 ### Frontend with VueJS 3
